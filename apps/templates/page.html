@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container-fluid">
+    <div>
+        <table class="table table-bordered">
+            <tr>
+                <th>类型</th>
+                <th>价格</th>
+                <th>日期</th>
+            </tr>
+            {% for travel in paginate.items %}
+                <tr>
+                    <td>{{ travel.title }}</td>
+                    <td>{{ travel.price }}</td>
+                    <td>{{ travel.create_date }}</td>
+                </tr>
+
+            {% endfor %}
+
+        </table>
+    </div>
+    {% from '_macro.html' import  pagination %}
+    {{ pagination(paginate,'temp.list') }}
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- 创建页码-->
+<ul class="pagination">
+    {#上一页#}
+    {% if pagination.has_prev %}
+        <li><a href="{{ url_for('.list',page=pagination.prev_num ,size=5) }}">&laquo;</a></li>
+    {% endif %}
+
+    {#页码#}
+    {% set page_now = pagination.page %}
+    {% set page_count = pagination.pages %}
+    {% if pagination.pages <= 10 %}
+        {% for p in pagination.iter_pages() %}
+            {% if p == pagination.page %}
+                <li><a style="background-color: darkgray;opacity: 0.7;color: black"
+                       href="{{ url_for('.list',page=p ,size=5) }}">{{ p }}</a></li>
+            {% else %}
+                <li><a href="{{ url_for('.list',page=p ,size=5) }}">{{ p }}</a></li>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% if page_now - 2 > 0 %}
+            <li><a href="{{ url_for('.list',page=page_now - 2,size=5) }}">{{ page_now-2 }}</a></li>
+        {% endif %}
+
+        {% if  page_now-1 >0 %}
+            <li><a href="{{ url_for('.list',page=page_now-1 ,size=5) }}">{{ page_now-1 }}</a></li>
+        {% endif %}
+
+        <li><a style="background-color: darkgray;opacity: 0.7;color: black"
+               href="{{ url_for('.list',page=page_now,size=5) }}">{{ page_now }}</a></li>
+        {% if (page_count-page_now) >1 %}
+            <li><a href="{{ url_for('.list',page=page_now + 1,size=5) }}">{{ page_now + 1 }}</a></li>
+        {% endif %}
+        {% if (page_count - page_now) >= 10 %}
+            <li><a href="{{ url_for('.list',page=page_now + 1,size=5) }}">{{ page_now + 2 }}</a></li>
+        {% endif %}
+    {% endif %}
+
+    {#下一页#}
+    {% if pagination.has_next %}
+        <li><a href="{{ url_for('.list',page=pagination.next_num,size=5) }}">&raquo;</a></li>
+    {% endif %}
+</ul>
+
+</body>
+</html>

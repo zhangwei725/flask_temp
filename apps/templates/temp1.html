@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap分页组件</title>
+    <link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .table th, .table td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="input-group">
+        <input type="text" class="form-control">
+        <div class="input-group-btn">
+            <button class="btn btn-default">搜索</button>
+        </div>
+    </div>
+    
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>标题</th>
+            <th>日期</th>
+        </tr>
+
+        <tr>
+            <td>11111</td>
+            <td>2018-11-11</td>
+        </tr>
+        <tr>
+            <td>11111</td>
+            <td>2018-11-11</td>
+        </tr>
+        <tr>
+            <td>11111</td>
+            <td>2018-11-11</td>
+        </tr>
+        <tr>
+            <td>11111</td>
+            <td>2018-11-11</td>
+        </tr>
+    </table>
+
+    <ul class="pagination">
+        <li><a href="" class="prev">前一页</a></li>
+        <li><a href="" class="disabled">&laquo;</a></li>
+        <li><a href="" class="active">1</a></li>
+        <li><a href="">1</a></li>
+        <li><a href="">2</a></li>
+        <li><a href="">3</a></li>
+        <li><a href="">4</a></li>
+        <li><a href="">5</a></li>
+        <li><a href="">6</a></li>
+        <li><a href="">7</a></li>
+        <li><a href="">&raquo;</a></li>
+        <li><a href="" class="next">前一页</a></li>
+    </ul>
+</div>
+
+</body>
+</html>

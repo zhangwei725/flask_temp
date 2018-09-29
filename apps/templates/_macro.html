@@ -1,0 +1,46 @@
+{#开发中常用的模板封装   宏 #}
+
+{% macro  input(type,name,value) %}
+    <input type="{{ type }}" name='{{ name }}' value="{{ value }}">
+{% endmacro %}
+
+
+{#    paginate   分页函数    每页多少条 #}
+{% macro  pagination(paginate,endpoint,size=10) %}
+    <ul class="pagination">
+        {#        定义变量#}
+        {% set  left_current  = 5 %}
+        {% set  right_current  = 5 %}
+        {% if paginate.page < 6 %}
+            {% set right_current = 11 -  paginate.page %}
+        {% elif paginate.pages - paginate.page < 5 %}
+            {% set left_current = 9 -  (paginate.pages - paginate.page) %}
+        {% endif %}
+        <li><a href="{{ url_for(endpoint,page=1,size=size) }}">首页</a></li>
+        {% if paginate.has_prev %}
+            <li><a href="{{ url_for(endpoint,page=paginate.prev_num,size=size) }}">上一页</a></li>
+        {% else %}
+            <li class="disabled"><a href="#">上一页</a></li>
+        {% endif %}
+        {% for item in paginate.iter_pages(left_edge=0, left_current=left_current,right_current=right_current, right_edge=0) %}
+            {% if item %}
+                {% if item == paginate.page %}
+                    <li class="active"><a href="{{ url_for(endpoint,page=item ,size=size) }}">{{ item }}</a></li>
+                {% else %}
+                    <li><a href="{{ url_for(endpoint,page=item ,size=size) }}">{{ item }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if paginate.has_next %}
+            <li><a href="{{ url_for(endpoint,page=paginate.next_num ,size=size) }}">下一页</a></li>
+        {% else %}
+            <li class="disabled"><a href="#">下一页</a></li>
+        {% endif %}
+        <li><a href="{{ url_for(endpoint,page=paginate.pages ,size=size) }}">末页</a></li>
+    </ul>
+{% endmacro %}
+{#导入#}
+{#{% import '_macro.html'  as page %}#}
+{#{% from '_macro.html' import paginate  as page %}#}
+{#使用#}
+{#{% %}#}
