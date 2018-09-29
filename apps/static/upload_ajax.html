@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/fileinput.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#login_btn').click(function () {
+                let UPLOADS_URL = 'http://127.0.0.1:5000/upload/ajax/';
+                //js对象
+                //  注意一定要转化成js对象
+                formData = new FormData($('#login')[0]);
+                formData.append('username', '娇娇');
+                formData.append('password', $('#password').val());
+                settings = {
+                    url: UPLOADS_URL,
+                    type: 'post',
+                    data: formData,
+                    //告诉ajax不要处理的我数据
+                    processData: false,
+                    // 不要处理contentType
+                    contentType: false,
+                    success: function (result) {
+                        if (result.status === 200) {
+                            $('img').attr('src', result.url)
+                        }
+                    }
+                };
+                $.ajax(settings)
+            })
+        })
+
+    </script>
+
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <form id="login" class="form-horizontal" method="post"
+          enctype="multipart/form-data">
+        <div class="form-group ">
+            <div class="col-lg-1 col-lg-offset-3">
+                <label for="username" class="control-label">用户名:</label>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-lg-1 col-lg-offset-3">
+                <label for="password" class="control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control" id="password" name="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="form-group ">
+            <div class="col-lg-1 col-lg-offset-3">
+                <label for="img" class="control-label">头&nbsp;&nbsp;&nbsp;&nbsp;像:</label>
+            </div>
+            <div class="col-lg-3">
+                <input type="file" class="form-control" id="img" name="img">
+            </div>
+        </div>
+        <div class="col-lg-offset-3">
+            <input type="button" id='login_btn' class="btn btn-primary col-lg-5" style="display: block" value="登录">
+        </div>
+    </form>
+
+    <div class="col-lg-6">
+        <img src="" class="img-rounded">
+    </div>
+
+</div>
+</body>
+</html>
